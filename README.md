@@ -8,7 +8,7 @@ It allows a easy passwod creation with metadata via a dialog.
 
 ```
 Usage:
-$PROGRAM create [opts]
+$PROGRAM create [opts] pass-name
     Creates a new password with metadata fields used e.g. in the browerpass addon.
     By default a new password is generated using pwgen unless -p us passed.
 $PROGRAM create help

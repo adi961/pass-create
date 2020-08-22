@@ -3,7 +3,7 @@
 cmd_create_usage() {
     cat <<-_EOF
 Usage:
-    $PROGRAM create [opts]
+    $PROGRAM create [opts] pass-name
         Creates a new password with metadata fields used e.g. in the browerpass addon.
         By default a new password is generated using pwgen unless -p us passed.
     $PROGRAM create help
@@ -26,15 +26,32 @@ _EOF
 }
 
 cmd_create_entry() {
+    custom_password=0
+    for i in "$@"
+        do
+        case $i in
+            -p)
+            custom_password=1
+            shift
+            ;;
+            help | --help | -h)
+            cmd_create_usage "$@"
+            exit
+            ;;
+            *)
+                # unknown option
+            ;;
+        esac
+    done
 
-    read -p "Enter a name: "  name
+    name=$1
     if [ -z "$name" ]; then
         echo "Name cannot be empty!";
         exit 1
     fi
 
     password=""
-    if [ "$1" == "-p" ]; then
+    if [ $custom_password -eq 1 ]; then
         read -p "Enter a password: " password
         if [ -z "$password" ]; then
             echo "Password cannot be empty!"
@@ -62,7 +79,7 @@ cmd_create_entry() {
     [ ! -z  "$openid" ] && content="${content}openid: $openid\n"
 
     read -p "Add more data? (y/N) " -n 1 -r
-    echo    # (optional) move to a new line
+    echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         text=""
 
