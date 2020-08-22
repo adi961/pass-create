@@ -1,17 +1,7 @@
 PASSWORD_STORE_EXTENSION_COMMANDS+=(create)
 
 __password_store_extension_complete_create() {
-  if [[ $COMP_CWORD -gt 2 ]]; then
-    case "${COMP_WORDS[2]}" in
-    help|--help|-h)
-      _pass_complete_entries 1
-      ;;
-    -p)
-    _pass_complete_entries 1
-    ;;
-    esac
-  else
-      COMPREPLY=($(compgen -W "help -h --help -p"))
-      _pass_complete_entries 1
-  fi
+  local args=(-h --help -p)
+	COMPREPLY+=($(compgen -W "${args[*]}" -- ${cur}))
+	_pass_complete_entries
 }
