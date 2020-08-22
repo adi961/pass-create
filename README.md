@@ -27,3 +27,8 @@ E.g. export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 Type "pass create" to create a new entry.
 E.g. pass create
 ```
+
+## Requirements
+
+- `pass` from [https://www.passwordstore.org/](https://www.passwordstore.org/)
+- `pwgen` to be installed for generating new passwords.
